@@ -1,0 +1,33 @@
+server:
+  port: 8087
+
+# Datasource
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./rentacar_workflow;AUTO_SERVER=TRUE
+    username: rentacar_workflow
+    password: rentacar_workflow
+  security:
+    user:
+      name: rentacar_workflow
+      password: rentacar_workflow
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+
+# BPM Engine
+operaton:
+  bpm:
+    admin-user:
+      id: rentacar_admin
+      password: rentacar_admin
+      first-name: rentacar
+      last-name: rentacar
+      email: rentacar_admin@rentacar.pl
+    generic-properties:
+      properties:
+        generalResourceWhitelistPattern: "[a-zA-Z0-9\\-_]+"

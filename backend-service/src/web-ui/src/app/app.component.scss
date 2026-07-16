@@ -1,0 +1,125 @@
+.logo {
+  font-size: 1.4em;
+  user-select: none;
+  color: var(--main-font);
+}
+
+.logo:hover {
+  cursor: pointer;
+  color: var(--gold);
+}
+
+.header {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 100px;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://puretesla.com/wp-content/uploads/2018/11/img_0623.jpg);
+  background-size: cover;
+  background-position-y: 72%;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    position: relative;
+    font-size: 1rem;
+    color: var(--main-font);
+    text-decoration: none;
+    margin-left: 30px;
+  }
+
+  a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 2px;
+    background: var(--main-font);
+    border-radius: 5px;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .lang-nav {
+    margin-left: 30px;
+  }
+
+  .lang-nav:hover {
+    cursor: pointer;
+  }
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  margin: 0.5em;
+  font-size: 2.3rem;
+  color: var(--main-font);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.router-section {
+  margin-top: 65px;
+  height: calc(100% - 350px);
+  background-color: white;
+}
+
+
+// MEDIA
+
+@media (max-width: 800px) {
+  .hamburger-container {
+    width: 100%;
+    position: fixed;
+    background: black;
+    align-items: center;
+    display: flex;
+    justify-items: center;
+    z-index: 100;
+    height: 60px;
+    top: 0;
+  }
+  fa-icon {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 28px;
+    height: 100%;
+    margin: 0.5em;
+  }
+  .router-section {
+    padding-top: 30px;
+    height: 100%;
+  }
+
+  .side-menu-expanded {
+    position: fixed;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: left;
+    z-index: 100;
+    top: 0;
+  }
+}

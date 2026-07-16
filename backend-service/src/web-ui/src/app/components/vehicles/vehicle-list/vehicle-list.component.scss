@@ -1,0 +1,50 @@
+.wrapper {
+  background-color: white;
+  padding: 40px;
+}
+
+.date-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.container {
+  margin: 20px auto;
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.no-vehicle {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+vehicle-card {
+  height: 470px;
+}
+
+// MEDIA
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    margin: 20px auto;
+    width: auto;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}

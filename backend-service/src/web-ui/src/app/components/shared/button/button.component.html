@@ -1,0 +1,5 @@
+<button class='btn'
+        [disabled]='disabled()'
+        [pTooltip]="tooltip()"
+        (click)='$event.preventDefault()'>{{ label() }}
+</button>

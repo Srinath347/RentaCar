@@ -1,0 +1,78 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 1%;
+}
+
+profile-mfa-totp {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfa-wrapper {
+  display: flex;
+  width: 900px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfa-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfa-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mfa-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title-info-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: bold;
+}
+
+
+// MEDIA
+@media (max-width: 800px) {
+  .mfa-info {
+    flex-direction: column;
+  }
+  .title-info-container {
+    text-align: center;
+  }
+  .mfa-wrapper {
+    width: 100%;
+  }
+
+}

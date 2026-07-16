@@ -1,0 +1,90 @@
+/* Imports */
+@font-face {
+  font-family: "Roboto";
+  src: url("assets/fonts/Roboto-Regular.ttf");
+}
+
+/* Overall */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-image: url(./assets/images/Fotolia_94386317_Subscription_Monthly_M.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200vh;
+}
+
+/* App defined colors */
+:root {
+  --main-color-icon: white;
+  --top-nav-color: #222831;
+  --main-font: #eeeeee;
+  --second-color: #0092ca;
+  --third-color: #393e46;
+  --gold: #d6c78e;
+}
+
+body {
+  font-family: Roboto, serif;
+  //TODO @Bobus123 relative => to powoduje, że wszystkie tooltipy (chmurki po najechaniu na np. ikonę języka z podpwiedzią nie przylegają do elementu)
+  position: relative;
+}
+
+h4 {
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.btn {
+  width: auto;
+  height: 45px;
+  background: transparent;
+  text-transform: uppercase;
+  border: 2px solid var(--main-font);
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--main-font);
+  margin-left: 30px;
+  transition: 0.3s;
+  padding: 10px;
+}
+
+
+a:hover {
+  color: var(--gold) !important;
+}
+
+.active-link {
+  color: var(--gold) !important;
+}
+
+.btn:disabled, .btn[disabled=disabled] {
+  cursor: not-allowed;
+  background: grey !important;
+}
+
+.p-message-error.p-message-simple {
+  color: red!important;
+}
+
+
+// Media
+
+@media (max-width: 800px) {
+  .searcher {
+    display: none;
+  }
+  .footer {
+    display: none;
+  }
+}

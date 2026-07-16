@@ -1,0 +1,565 @@
+{
+  "title": {
+    "main": "Rent a car",
+    "sign-in": "Sign in",
+    "sign-in-mfa": "Sign in",
+    "sign-up": "Sign up",
+    "not-found": "Page not found",
+    "profile": "Profile",
+    "profile-edit": "Profile edit",
+    "profile-security": "Security",
+    "vehicle-list": "Searching vehicles",
+    "vehicle-details": "Vehicle details",
+    "reservation": "Reservation",
+    "activation": "Account activation",
+    "account-activated": "Account activated",
+    "reactivation-account": "Account reactivation",
+    "admin-panel": "Admin panel",
+    "admin-add-vehicle": "Add vehicle",
+    "admin-remove-vehicle": "Remove vehicle",
+    "reservation-update-status": "Reservation update status",
+    "password-reset": "Reset password",
+    "new-password": "New password",
+    "reservation-payment-info": "Payment for reservation",
+    "myReservations": "My reservations"
+  },
+  "components": {
+    "authentication": {
+      "sign-in": {
+        "sign-in-header": "Sign In",
+        "sign-in-mfa-header": "Type in two-factor auth code",
+        "mfa-code": {
+          "label": "Code"
+        },
+        "login": {
+          "label": "Login"
+        },
+        "password": {
+          "label": "Password"
+        },
+        "rememberMe": {
+          "label": "Remember me"
+        },
+        "buttons": {
+          "sign-in": "Sign in",
+          "sign-up": "Sign up",
+          "password-reset": "Don't remember password?"
+        }
+      }
+    },
+    "profile-edit": {
+      "form": {
+        "title": "User profile edit",
+        "button": {
+          "label": "Update data"
+        },
+        "label": {
+          "firstName": "First name",
+          "lastName": "Last name",
+          "email": "Email",
+          "birthDate": "Birth date",
+          "city": "City",
+          "zipCode": "Zip code",
+          "street": "Street and house number",
+          "phoneNumber": "Phone number"
+        },
+        "errors": {
+          "email": {
+            "email": "Incorrect address email format"
+          },
+          "phoneNumber": {
+            "pattern": "Incorrect phone number"
+          },
+          "zipCode": {
+            "pattern": "Incorrect zip code format"
+          },
+          "required": "This field is required",
+          "icon-not-saved": "The icon has not been saved. Please update your profile to save changes."
+        },
+        "tooltips": {
+          "icon-upload": "Click the upload icon below to upload a file."
+        }
+      },
+      "toasts": {
+        "update": {
+          "success": "User profile has been updated successfully",
+          "error": "User profile has not been updated successfully"
+        }
+      }
+    },
+    "sign-up": {
+      "labels": {
+        "title": "Sign up",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "password-confirm": "Confirm password",
+        "buttons": {
+          "sign-up": "Sign up"
+        }
+      },
+      "errors": {
+        "required": "This field is required",
+        "password-doesnt-match": "Both passwords must match",
+        "min-length": "Min length equals 5 chars",
+        "email": "Incorrect format of email address"
+      },
+      "toasts": {
+        "sign-up-success": "Registered successfully. A link to activate the account in the application has been sent to the e-mail address provided.",
+        "sign-up-error": "Registration failed. Try again."
+      }
+    },
+    "searcher": {
+      "labels": {
+        "pickup-locations": "Enter a city, airport or address"
+      },
+      "buttons": {
+        "search": "Search"
+      }
+    },
+    "vehicle-card": {
+      "labels": {
+        "show-details": "Show vehicle details",
+        "ac": "Air conditioning",
+        "insurance": "Service, Tires, Insurance in price",
+        "flexible": "Flexible everyday",
+        "no-extra-payment": "No extra payments",
+        "assistance": "Assistance 24/7",
+        "full-led": "Full led lights",
+        "leather": "Leather seats",
+        "multi-steering-wheel": "Multifunctional steering wheel",
+        "bluetooth": "Bluetooth",
+        "gas": "Gas",
+        "diesel": "Diesel",
+        "hybrid": "Hybrid",
+        "electric": "Electric",
+        "avg-fuel-consumption": "l/100km average consumption",
+        "price": "Lease price from"
+      },
+      "buttons": {
+        "reserve": "Reserve vehicle",
+        "details": "Vehicle details"
+      }
+    },
+    "vehicle-list": {
+      "labels": {
+        "no-vehicles": "No vehicles in selected term"
+      }
+    },
+    "vehicle-details": {
+      "labels": {
+        "production-year": "Production year:",
+        "amount-of-seats": "Amount of seats:",
+        "category": "Category:",
+        "color": "Color:",
+        "rims-inch": "Rims inch:",
+        "engine-type": "Engine type:",
+        "avg-fuel-consumption": "Avg fuel consumption l/100km:",
+        "engine-power": "Engine power:",
+        "engine-capacity": "Engine capacity:",
+        "engine-transmission": "Transmission:",
+        "ac": "AC",
+        "pdc-front": "Front PDC:",
+        "pdc-rear": "Rear PDC:",
+        "bluetooth": "Bluetooth:",
+        "led-front": "Front LED lights:",
+        "led-rear": "Rear LED lights:",
+        "xenon-front": "Front XENON lights:",
+        "leather": "Leather seats:",
+        "multi-steering-wheel": "Multifunctional steering wheel:",
+        "cruise-control": "Cruise control:"
+      },
+      "buttons": {
+        "reserve": "Reserve",
+        "disabled": "Sign in, to reserve a vehicle",
+        "notAvailable": "Vehicle not available in selected term"
+      },
+      "reserve": {
+        "labels": {
+          "reserve": "Reserve",
+          "availability": "Availability",
+          "terms": "Overall terms",
+          "caution": "Deposit in the amount of PLN 1,500 payable in cash",
+          "mileageLimit": "Mileage limit per day: 300km",
+          "price": "Rent price "
+        }
+      }
+    },
+    "activation-account": {
+      "toasts": {
+        "error": "The token has expired. Please contact the application administrator to activate your account."
+      }
+    },
+    "account-activated": {
+      "labels": {
+        "title": "Account has been activated.",
+        "sign-in": "Sign in"
+      }
+    },
+    "reactivation-account": {
+      "labels": {
+        "title": "Activation link",
+        "login": "Login"
+      },
+      "buttons": {
+        "resend": "Resend"
+      },
+      "toasts": {
+        "success": "Activation link has been send successfully to email below",
+        "error": "Activation link has not been send successfully"
+      }
+    },
+    "password-reset": {
+      "labels": {
+        "title": "Receiving password",
+        "login": "Login"
+      },
+      "buttons": {
+        "resend": "Receive password"
+      },
+      "toasts": {
+        "success": "Receiving password link has been send successfully to email below",
+        "error": "Receiving password link has not been send successfully"
+      },
+      "errors": {
+        "required": "This field is required",
+        "min-length": "Min length equals 5 chars"
+      }
+    },
+    "new-password": {
+      "labels": {
+        "title": "New password",
+        "password": "Password",
+        "confirm-password": "Confirm password"
+      },
+      "buttons": {
+        "set": "Set new password"
+      },
+      "toasts": {
+        "update-success": "New password has been set successfully",
+        "update-error": "New password has not been set successfully",
+        "token-expired": "Token has expired. Generate new one"
+      },
+      "errors": {
+        "required": "This field is required",
+        "min-length": "Min length equals 5 chars",
+        "doesnt-match": "Both passwords don't match"
+      }
+    },
+    "main": {
+      "labels": {
+        "title": "Test\nspeed on\nYour own skin",
+        "text": "Familiarize yourself with the wide range of sports cars (and not only) and choose the one that suits you best."
+      },
+      "buttons": {
+        "reserve": "Reserve"
+      }
+    },
+    "admin-side-menu": {
+      "labels": {
+        "add-vehicle": "Add vehicle",
+        "remove-vehicle": "Remove vehicle",
+        "reservation-update-status": "Reservation update status"
+      }
+    },
+    "admin-add-vehicle": {
+      "labels": {
+        "photos": "Choose photos",
+        "deletePhoto": "Delete",
+        "brand": "Brand",
+        "model": "Model",
+        "productionYear": "Production year",
+        "seatsAmount": "Seats amount",
+        "basicPrice": "Basic price",
+        "color": "Color",
+        "rimsInch": "Rims inch [\"]",
+        "capacity": "Capacity [cm3]",
+        "type": "Engine type",
+        "power": "Power [KM]",
+        "torque": "Torque [Nm]",
+        "avgFuelConsumption": "Avg fuel consumption [l/100km]",
+        "transmission": "Transmission",
+        "ac": "AC",
+        "frontPDC": "Front PDC",
+        "rearPDC": "Rear PDC",
+        "ledFrontLights": "LED front lights",
+        "xenonFrontLights": "Xenon front lights",
+        "ledRearLights": "LED rear lights",
+        "leatherSeats": "Leather seats",
+        "multifunctionalSteeringWheel": "Multifunctional steering wheel",
+        "cruiseControl": "Cruise control",
+        "category": "Vehicle category",
+        "addVehicle": "Add vehicle"
+      },
+      "dialog": {
+        "header": "Add vehicle",
+        "message": "Are you sure You want to add vehicle?",
+        "acceptLabel": "Yes",
+        "rejectLabel": "No"
+      },
+      "toasts": {
+        "success": "New vehicle has been added",
+        "error": "New vehicle has not been added successfully"
+      },
+      "errors": {
+        "required": "This field is required"
+      }
+    },
+    "profile-security": {
+      "titles": {
+        "main": "Security",
+        "passwordChange": "Password change",
+        "mfa": "Two step authentication"
+      },
+      "buttons": {
+        "passwordChange": "Change password"
+      },
+      "toasts": {
+        "passwordChangeSuccess": "A password reset procedure has been sent to your email address",
+        "passwordChangeError": "Failed to start the password reset procedure",
+        "passwordChangeWarn": "Unexpected error"
+      }
+    },
+    "profile": {
+      "edit": "Profile edit",
+      "security": "Security"
+    },
+    "profile-panel": {
+      "profile": "Profile",
+      "admin": "Admin panel",
+      "my-reservations": "My reservations",
+      "logout": "Logout"
+    },
+    "profile-mfa-totp": {
+      "label": "Scan the QR code in the app and enter the generated key below",
+      "6digitCode": "6 digit code"
+    },
+    "profile-mfa": {
+      "buttons": {
+        "save": "Save",
+        "configure": "Configure",
+        "details": "Details",
+        "delete": "Delete"
+      },
+      "totp": {
+        "title": "Authentication app for two-step authentication",
+        "info": "Two-step login (2EL) using an authenticator app. When logging in, enter the security code received in the authentication application."
+      },
+      "dialog": {
+        "delete": {
+          "header": "Confirm delete",
+          "message": "Are you sure you want to remove two-step authentication?",
+          "accept": "Yes",
+          "reject": "No"
+        },
+        "recovery-codes": {
+          "header": "Recovery codes",
+          "accept": "Understood",
+          "message": "Save below recovery codes. You will need them in case of lose access to two step authentication app:<br><br>{{codes}}"
+        },
+        "mfa-info": {
+          "message": "Selected two step authentication {{type}} <br>Activation date: {{date}}"
+        }
+      }
+    },
+    "reservation-payment-info": {
+      "header": "Vehicle reserved",
+      "firstMessage": "Selected vehicle has been successfully reserved!",
+      "secondMessage": "We have sent a link to pay for the reservation to the email address you provided.\nPayment must be made a maximum of 24 hours before collecting the vehicle, otherwise the reservation will be canceled."
+    },
+    "reservation": {
+      "buttons": {
+        "back": "Back",
+        "next": "Next",
+        "reserve": "Reserve",
+        "cancel": "Cancel"
+      },
+      "summary-step": {
+        "labels": {
+          "dateFrom": "Beginning date",
+          "dateEnd": "Ending date",
+          "totalPrice": "Total price",
+          "firstName": "Renting firstName",
+          "lastName": "Renting lastName"
+        }
+      },
+      "reserveDialog": {
+        "header": "Confirmation",
+        "message": "Do you want to confirm reservation?",
+        "acceptLabel": "Yes",
+        "rejectLabel": "No"
+      },
+      "toasts": {
+        "reservationSuccess": "Reservation has been saved successfully",
+        "reservationError": "Reservation has not been saved successfully",
+        "reservationNotFound": "Reservation not found",
+        "reservationReadOnly": "This reservation has been created. No editing possible",
+        "reservationVehicleNotAvailable": "Selected vehicle is not available anymore in selected dates range"
+      }
+    },
+    "app": {
+      "labels": {
+        "mainPage": "Main page",
+        "cars": "Cars",
+        "contact": "Contact",
+        "signIn": "Sign in",
+        "logout": "Logout",
+        "profile": "Profile",
+        "changeLanguage": "Change language",
+        "reserve": "Reserve",
+        "myReservations": "My reservations"
+      }
+    },
+    "not-found": {
+      "notFound": "Page not found"
+    },
+    "my-reservations": {
+      "labels": {
+        "noReservations": "No reservations"
+      },
+      "cancelDialog": {
+        "header": "Confirmation",
+        "message": "Do you want to cancel reservation?",
+        "acceptLabel": "Yes",
+        "rejectLabel": "No"
+      },
+      "toasts": {
+        "reservationCancelled": "Reservation has been cancelled",
+        "reservationCancelledError": "Reservation has not been cancelled"
+      }
+    },
+    "my-reservation-card": {
+      "labels": {
+        "dateFrom": "Date from",
+        "dateTo": "Date to",
+        "status": "Status",
+        "vehicleName": "Vehicle name"
+      },
+      "buttons": {
+        "details": "Details",
+        "cancel": "Cancel"
+      }
+    },
+    "admin-remove-vehicle": {
+      "dialog": {
+        "header": "Confirm remove",
+        "message": "Are you sure to delete selected vehicle?",
+        "accept": "Yes",
+        "reject": "No"
+      },
+      "toasts": {
+        "removeSuccess": "Vehicle has been removed",
+        "removeError": "Vehicle has not been removed"
+      }
+    },
+    "reservation-status-update": {
+      "toasts": {
+        "updateSuccess": "Reservation status has been updated",
+        "updateError": "Reservation status has not been updated"
+      },
+      "labels": {
+        "noReservations": "No reservations"
+      }
+    },
+    "reservation-status-update-card": {
+      "labels": {
+        "dateFrom": "Date from:",
+        "dateTo": "Date to:"
+      },
+      "buttons": {
+        "changeStatus": "Change status"
+      }
+    }
+  },
+  "services": {
+    "sign-in": {
+      "success": "Signed in succeed",
+      "error": "Error while signing in"
+    },
+    "log-out": {
+      "success": "Logged out succeed",
+      "error": "Error while logging out"
+    },
+    "token-expire": "Token expired. Sign in again."
+  },
+  "primeng": {
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "today": "Today",
+    "weekHeader": "Week",
+    "firstDayOfWeek": 1
+  },
+  "additional": {
+    "engine-type": {
+      "gas": "Gas",
+      "diesel": "Diesel",
+      "hybrid": "Hybrid",
+      "electirc": "Electric"
+    },
+    "transmission": {
+      "manual": "Manual",
+      "automatic": "Automatic"
+    },
+    "colors": {
+      "white": "White",
+      "red": "Red",
+      "blue": "Blue",
+      "green": "Green",
+      "yellow": "Yellow",
+      "black": "Black"
+    }
+  }
+}

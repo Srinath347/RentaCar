@@ -1,0 +1,24 @@
+<div class='wrapper'>
+  <h4 class='header4'>{{
+      'components.authentication.sign-in.sign-in-header' | translate
+    }}</h4>
+
+  <form [formGroup]='form' class='form'>
+
+    <app-input class="form_input" controlName="login" [placeholder]="'components.authentication.sign-in.login.label' | translate"
+               [minLength]="5"></app-input>
+    <app-input class="form_input" controlName="password" [placeholder]="'components.authentication.sign-in.password.label' | translate"
+               [minLength]="5"></app-input>
+
+    <app-checkbox controlName="rememberMe" [label]="'components.authentication.sign-in.rememberMe.label' | translate"></app-checkbox>
+
+    <app-button (click)="signIn()" [disabled]='!formService.isFormValid()'
+                [label]="'components.authentication.sign-in.buttons.sign-in' | translate"></app-button>
+    <app-button routerLink='/sign-up'
+                [label]="'components.authentication.sign-in.buttons.sign-up' | translate"></app-button>
+
+    <a routerLink='/password-reset'>
+      {{ "components.authentication.sign-in.buttons.password-reset" | translate }}
+    </a>
+  </form>
+</div>

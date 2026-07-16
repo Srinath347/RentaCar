@@ -1,0 +1,13 @@
+<div class='container'>
+  @if (reservations.length >0 ) {
+    @for (reservation of reservations; track reservation) {
+      <div>
+        <reservation-status-update-card [reservation]='reservation'
+          [dictionary]='dictionary'
+        (changeStatus)='updateVehicleStatus(reservation.id, $event)'></reservation-status-update-card>
+      </div>
+    }
+  } @else {
+    {{'components.reservation-status-update.labels.noReservations' | translate}}
+  }
+</div>

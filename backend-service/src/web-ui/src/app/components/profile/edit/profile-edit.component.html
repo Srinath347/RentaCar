@@ -1,0 +1,88 @@
+@if (userProfile) {
+  <form [formGroup]='form'>
+    <h3>{{ 'components.profile-edit.form.title' | translate }}</h3>
+    <div class='image-upload'>
+      <img alt=''
+           [src]='iconUrl'
+           pTooltip="{{'components.profile-edit.form.tooltips.icon-upload' | translate}}"
+           tooltipPosition='bottom'
+           (click)='openFileBrowser()'/>
+      <input id='file-input' type='file'
+             accept='image/jpeg,image/png'
+             (change)='uploadFile($event)'/>
+      @if (iconUploaded) {
+        <small
+          class='p-error'>{{ 'components.profile-edit.form.errors.icon-not-saved' | translate }}</small>
+      }
+    </div>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.firstName' | translate" controlName="firstName"
+               [maxLength]="255">
+      @if (hasFormError('firstName', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.lastName' | translate" controlName="lastName"
+               [maxLength]="255">
+      @if (hasFormError('lastName', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.email' | translate" controlName="email"
+               [maxLength]="255">
+      @if (hasFormError('email', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+      @if (hasFormError('email', 'email')) {
+        {{ 'components.profile-edit.form.errors.email.email' | translate }}
+      }
+    </app-input>
+
+    <app-date-picker [label]="'components.profile-edit.form.label.birthDate' | translate" controlName="birthDate"
+                     [maxDate]='todayDate'>
+      @if (hasFormError('birthDate', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-date-picker>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.city' | translate" controlName="city"
+               [maxLength]="255">
+      @if (hasFormError('city', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.zipCode' | translate" controlName="zipCode"
+               [maxLength]="6" mask='00-000'>
+      @if (hasFormError('zipCode', 'pattern')) {
+        {{ 'components.profile-edit.form.errors.zipCode.pattern' | translate }}
+      }
+      @if (hasFormError('zipCode', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.street' | translate" controlName="street"
+               [maxLength]="255">
+      @if (hasFormError('street', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [placeholder]="'components.profile-edit.form.label.phoneNumber' | translate" controlName="phoneNumber"
+               mask='000 000 000'>
+      @if (hasFormError('phoneNumber', 'pattern')) {
+        {{ 'components.profile-edit.form.errors.phoneNumber.pattern' | translate }}
+      }
+      @if (hasFormError('phoneNumber', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <div class='button-container'>
+      <app-button [label]="'components.profile-edit.form.button.label' | translate" (click)="update()"></app-button>
+    </div>
+  </form>
+}

@@ -1,0 +1,86 @@
+@if (isMobile && !sideMenuExpanded) {
+  <div class='hamburger-container'>
+    <fa-icon icon='bars' (click)='toggleSideMenu()'></fa-icon>
+  </div>
+}
+
+@if (sideMenuExpanded) {
+  <nav class='side-menu-expanded'>
+    @if (sideMenuExpanded) {
+      <fa-icon icon='xmark' (click)='toggleSideMenu()'></fa-icon>
+    }
+    <a class='nav__link' routerLink='' (click)='closeSideMenu()'>{{ 'components.app.labels.mainPage' | translate }}</a>
+    <a class='nav__link'
+       href='#'
+       [routerLinkActive]="['active-link']"
+       (click)='closeSideMenu()'>{{ 'components.app.labels.cars' | translate }}</a>
+    <a class='nav__link'
+       routerLink='vehicle-list'
+       [routerLinkActive]="['active-link']"
+       (click)='closeSideMenu()'>{{ 'components.app.labels.reserve' | translate }}</a>
+    <a class='nav__link'
+       routerLink='contact'
+       [routerLinkActive]="['active-link']"
+       (click)='closeSideMenu()'>{{ 'components.app.labels.contact' | translate }}</a>
+    @if (!userLogged) {
+      <a class='nav__link'
+         routerLink='sign-in'
+         [routerLinkActive]="['active-link']"
+         (click)='closeSideMenu()'
+      >{{ "components.app.labels.signIn" | translate }}</a>
+    }
+    @if (userLogged) {
+      <a class='nav__link'
+         routerLink='my-reservations'
+         [routerLinkActive]="['active-link']"
+         (click)='closeSideMenu()'
+      >{{ 'components.app.labels.myReservations' | translate }}</a>
+    }
+    @if (userLogged) {
+      <a class='nav__link'
+         routerLink='profile/edit'
+         [routerLinkActive]="['active-link']"
+         (click)='closeSideMenu()'
+      >{{ "components.app.labels.profile" | translate }}</a>
+    }
+    @if (userLogged) {
+      <a class='nav__link'
+         (click)='logout()'
+      >{{ "components.app.labels.logout" | translate }}</a>
+    }
+    <a class='{{ iconLang }} nav__link' (click)='changeLanguage()'
+       pTooltip="{{ 'components.app.labels.changeLanguage' | translate }}" tooltipPosition='bottom'></a>
+  </nav>
+}
+
+@if (!isMobile) {
+  <div class='header'>
+    <h2 class='logo' routerLink=''>RentaCar</h2>
+    <div class='nav'>
+      <a href='#' [routerLinkActive]="['active-link']">{{ 'components.app.labels.cars' | translate }}</a>
+      <a href='#' [routerLinkActive]="['active-link']">FAQ</a>
+      <a routerLink='contact' [routerLinkActive]="['active-link']">{{ 'components.app.labels.contact' | translate }}</a>
+      @if (!userLogged) {
+        <app-button class='sign-in-log-out-nav' routerLink='sign-in' [routerLinkActive]="['active-link']"
+                    [label]="'components.app.labels.signIn' | translate"></app-button>
+      }
+      @if (userLogged) {
+        <profile-panel class='panel-log' (logoutEmitter)='logout()' [user]='userLogged'></profile-panel>
+      }
+      <span class='lang-nav {{ iconLang }}' (click)='changeLanguage()'
+            pTooltip="{{ 'components.app.labels.changeLanguage' | translate }}" tooltipPosition='bottom'>
+      </span>
+    </div>
+  </div>
+}
+
+
+<div class='router-section'>
+  <router-outlet></router-outlet>
+  <p-toast key='success' [position]="isMobile ? 'top-center' : 'top-right'"/>
+  <p-toast key='warn' [position]="isMobile ? 'top-center' : 'top-right'"/>
+  <p-toast key='error' [position]="isMobile ? 'top-center' : 'top-right'"/>
+</div>
+
+
+<footer [isMobile]='isMobile'></footer>

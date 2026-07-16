@@ -1,0 +1,11 @@
+<div class='wrapper'>
+  <h4 class='header4'>Kontakt</h4>
+
+  <form class='form' [formGroup]="formGroup">
+    <app-input controlName="topic" placeholder="Temat"></app-input>
+    <app-input type="email" controlName="email" placeholder="Email"></app-input>
+    <app-input  controlName="message" placeholder="Wiadomość"></app-input>
+
+    <app-button label="Wyślij" (click)="send()"></app-button>
+  </form>
+</div>

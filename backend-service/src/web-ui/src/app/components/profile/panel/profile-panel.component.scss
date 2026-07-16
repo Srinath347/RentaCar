@@ -1,0 +1,38 @@
+.container {
+  position: fixed;
+  top: 65px;
+  background: black;
+  width: 170px;
+  color: var(--main-font);
+  border-radius: 5px;
+}
+
+li {
+  padding: 5px;
+  list-style-type: none;
+}
+
+li:hover {
+  color: black;
+  background-color: var(--main-font);
+  cursor: pointer;
+}
+
+.pi {
+  font-size: 14px !important;
+}
+
+.pi {
+  margin-right: 5px;
+}
+
+img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  margin-left: 30px;
+}
+
+img:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.aquerr</groupId>
+	<artifactId>rentacar</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>RentaCar</name>
+	<description>RentaCar</description>
+
+	<developers>
+		<developer>
+			<id>aquerr</id>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>mateo9x</id>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<modules>
+		<module>backend-service</module>
+		<module>workflow-service</module>
+	</modules>
+
+</project>

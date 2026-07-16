@@ -1,0 +1,26 @@
+<div class='container'>
+  @if (vehicles.length >0 ) {
+    @for (vehicle of vehicles; track vehicle) {
+      <div class='vehicle-container'>
+        <img alt='' [src]='vehicle.photoUrl' />
+        <div class='info'>
+          {{vehicle.brand}} {{vehicle.model}}
+        </div>
+        <div class='info'>
+          {{vehicle.basicPrice}} PLN
+        </div>
+        <fa-icon icon='trash' (click)='removeVehicleDialog(vehicle.id)'></fa-icon>
+      </div>
+    }
+  } @else {
+    noVehicles
+  }
+</div>
+
+<p-confirmDialog
+  message="{{'components.admin-remove-vehicle.dialog.message' | translate}}"
+  header="{{'components.admin-remove-vehicle.dialog.header' | translate}}"
+  acceptLabel="{{'components.admin-remove-vehicle.dialog.accept' | translate}}"
+  rejectLabel="{{'components.admin-remove-vehicle.dialog.reject' | translate}}"
+  icon='pi pi-exclamation-triangle'
+></p-confirmDialog>

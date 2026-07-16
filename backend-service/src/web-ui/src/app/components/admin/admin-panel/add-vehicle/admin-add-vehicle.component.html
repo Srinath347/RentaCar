@@ -1,0 +1,173 @@
+<form class='form' [formGroup]='form'>
+  <div class='img-container'>
+    <div class='img-uploader'>
+      <app-button [label]="'components.admin-add-vehicle.labels.photo' | translate"
+                  (click)='openFileBrowser()'></app-button>
+      <input id='file-input' type='file'
+             accept='image/jpeg,image/png'
+             [multiple]='true'
+             (change)='uploadFile($event)'/>
+    </div>
+
+    @if (imageFiles.length > 0) {
+      <div class='image-list-container'>
+        @for (imageFile of imageFiles; track imageFile) {
+          <div class='img-row'>
+            <img [src]='getImage(imageFile)' alt=''/> {{ imageFile.file.name }}
+            <app-button [label]="'components.admin-add-vehicle.labels.deletePhoto' | translate"
+                        (click)='removeFile(imageFile)'></app-button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class='input-list-container'>
+    <app-input [label]="'components.admin-add-vehicle.labels.brand' | translate " controlName="brand" [maxLength]="255">
+      @if (hasFormError('brand', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.admin-add-vehicle.labels.model' | translate " controlName="model" [maxLength]="255">
+      @if (hasFormError('model', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-date-picker [label]="'components.admin-add-vehicle.labels.productionYear' | translate "
+                     controlName="productionYear" [maxDate]='today'>
+      @if (hasFormError('productionYear', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-date-picker>
+
+
+    <app-input [label]="'components.admin-add-vehicle.labels.seatsAmount' | translate " controlName="seatsAmount"
+               [minLength]="1" [maxLength]="10">
+      @if (hasFormError('seatsAmount', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+
+    <app-input [label]="'components.admin-add-vehicle.labels.basicPrice' | translate " controlName="basicPrice"
+               [minLength]="1">
+      @if (hasFormError('basicPrice', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+
+    <app-color-picker [label]="'components.admin-add-vehicle.labels.color' | translate " controlName="color">
+      @if (hasFormError('color', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-color-picker>
+
+    <app-input [label]="'components.admin-add-vehicle.labels.rimsInch' | translate " controlName="rimsInch"
+               [minLength]="1">
+      @if (hasFormError('rimsInch', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+
+    <app-input [label]="'components.admin-add-vehicle.labels.capacity' | translate " controlName="capacity"
+               [minLength]="1">
+      @if (hasFormError('capacity', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-multi-select
+      controlName='type'
+      [label]="'components.admin-add-vehicle.labels.type' | translate"
+      [options]='getTypes()'
+      displayType='chip'
+      [selectionLimit]='1'>
+      @if (hasFormError('type', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-multi-select>
+    <app-input [label]="'components.admin-add-vehicle.labels.power' | translate" controlName="power" [minLength]="1"
+               [maxLength]="1000">
+      @if (hasFormError('power', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.admin-add-vehicle.labels.torque' | translate" controlName="torque" [minLength]="1"
+               [maxLength]="1000">
+      @if (hasFormError('torque', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.admin-add-vehicle.labels.avgFuelConsumption' | translate"
+               controlName="avgFuelConsumption" [minLength]="1"
+               [maxLength]="50">
+      @if (hasFormError('avgFuelConsumption', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-multi-select [options]="getTransmissions()"
+                      [label]="'components.admin-add-vehicle.labels.transmission' | translate"
+                      controlName="transmission" [selectionLimit]="1">
+      @if (hasFormError('transmission', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-multi-select>
+
+
+    <app-multi-select [options]="categories"
+                      [label]="'components.admin-add-vehicle.labels.category' | translate"
+                      controlName="category" [selectionLimit]="1">
+      @if (hasFormError('category', 'required')) {
+        {{ 'components.admin-add-vehicle.errors.required' | translate }}
+      }
+    </app-multi-select>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.ac' | translate" controlName="ac"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.frontPDC' | translate"
+                  controlName="frontPDC"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.rearPDC' | translate"
+                  controlName="rearPDC"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.bluetooth' | translate"
+                  controlName="bluetooth"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.ledFrontLights' | translate"
+                  controlName="ledFrontLights"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.xenonFrontLights' | translate"
+                  controlName="xenonFrontLights"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.ledRearLights' | translate"
+                  controlName="ledRearLights"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.leatherSeats' | translate"
+                  controlName="leatherSeats"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.multifunctionalSteeringWheel' | translate"
+                  controlName="multifunctionalSteeringWheel"></app-checkbox>
+
+    <app-checkbox [label]="'components.admin-add-vehicle.labels.cruiseControl' | translate"
+                  controlName="cruiseControl"></app-checkbox>
+
+    <app-button [label]="'components.admin-add-vehicle.labels.addVehicle' | translate"
+                (click)='addVehicleConfirmationDialog()'></app-button>
+  </div>
+</form>
+
+
+<p-confirmDialog
+  message="{{'components.admin-add-vehicle.dialog.message' | translate}}"
+  header="{{'components.admin-add-vehicle.dialog.header' | translate}}"
+  acceptLabel="{{'components.admin-add-vehicle.dialog.acceptLabel' | translate}}"
+  rejectLabel="{{'components.admin-add-vehicle.dialog.rejectLabel' | translate}}"
+  icon='pi pi-exclamation-triangle'
+></p-confirmDialog>

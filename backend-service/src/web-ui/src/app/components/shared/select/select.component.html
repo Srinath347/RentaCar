@@ -1,0 +1,15 @@
+@if (!controlName()) {
+  <p-select
+            [(ngModel)]='model'
+            (ngModelChange)='onSelectChange()'
+  [readonly]="isReadonly()">
+  </p-select>
+} @else {
+  <app-form-field-container [formGroup]="formGroup()" [label]="label()">
+  <p-select
+            [formControlName]="controlName()"
+            [options]="options()"
+            [readonly]="isReadonly()"></p-select>
+    <ng-content></ng-content>
+  </app-form-field-container>
+}

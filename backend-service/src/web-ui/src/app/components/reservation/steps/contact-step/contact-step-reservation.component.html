@@ -1,0 +1,60 @@
+@if (userProfile) {
+  <form [formGroup]='form'>
+    <app-input [label]="'components.profile-edit.form.label.firstName' | translate" controlName="firstName"
+               [maxLength]="255">
+      @if (hasFormError('firstName', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.profile-edit.form.label.lastName' | translate" controlName="lastName"
+               [maxLength]="255">
+      @if (hasFormError('lastName', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.profile-edit.form.label.email' | translate" controlName="email" [maxLength]="255">
+      @if (hasFormError('email', 'email')) {
+        {{ 'components.profile-edit.form.errors.email.email' | translate }}
+      }
+      @if (hasFormError('email', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-date-picker [label]="'components.profile-edit.form.label.birthDate' | translate" controlName="birthDate">
+      @if (hasFormError('birthDate', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-date-picker>
+
+    <app-input [label]="'components.profile-edit.form.label.city' | translate" controlName="city" [maxLength]="255">
+      @if (hasFormError('city', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.profile-edit.form.label.zipCode' | translate" controlName="zipCode" mask='00-000'>
+      @if (hasFormError('zipCode', 'pattern')) {
+        {{ 'components.profile-edit.form.errors.zipCode.pattern' | translate }}
+      }
+      @if (hasFormError('zipCode', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.profile-edit.form.label.street' | translate" controlName="street" [maxLength]="255">
+      @if (hasFormError('street', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+
+    <app-input [label]="'components.profile-edit.form.label.phoneNumber' | translate" controlName="phoneNumber"
+               mask='000 000 000'>
+      @if (hasFormError('phoneNumber', 'required')) {
+        {{ 'components.profile-edit.form.errors.required' | translate }}
+      }
+    </app-input>
+  </form>
+}

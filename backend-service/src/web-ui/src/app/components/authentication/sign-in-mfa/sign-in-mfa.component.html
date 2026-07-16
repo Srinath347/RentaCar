@@ -1,0 +1,16 @@
+<div class='wrapper'>
+  <h4 class='header4'>{{
+      'components.authentication.sign-in.sign-in-mfa-header' | translate
+    }}</h4>
+
+  <form [formGroup]='form' class='form'>
+
+    <app-input controlName="code" [placeholder]="'components.authentication.sign-in.mfa-code.label' | translate"
+               [minLength]="5">
+    </app-input>
+
+    <app-button [label]="'components.authentication.sign-in.buttons.sign-in' | translate" (click)="signIn()"
+                [disabled]='!formService.isFormValid()'></app-button>
+
+  </form>
+</div>
