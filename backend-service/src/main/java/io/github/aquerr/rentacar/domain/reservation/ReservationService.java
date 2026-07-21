@@ -5,17 +5,25 @@ import io.github.aquerr.rentacar.application.exception.ReservationVehicleNotAvai
 import io.github.aquerr.rentacar.application.security.AuthenticatedUser;
 import io.github.aquerr.rentacar.application.security.AuthenticationFacade;
 import io.github.aquerr.rentacar.domain.reservation.converter.ReservationConverter;
+import io.github.aquerr.rentacar.domain.reservation.dto.HoldRequest;
 import io.github.aquerr.rentacar.domain.reservation.dto.ProfileReservation;
 import io.github.aquerr.rentacar.domain.reservation.dto.Reservation;
 import io.github.aquerr.rentacar.domain.reservation.dto.ReservationBatchRequest;
 import io.github.aquerr.rentacar.domain.reservation.model.ReservationEntity;
 import io.github.aquerr.rentacar.domain.reservation.model.ReservationStatus;
+import io.github.aquerr.rentacar.domain.reservation.payment.PaymentEventEntity;
+import io.github.aquerr.rentacar.domain.reservation.payment.PaymentEventRepository;
+import io.github.aquerr.rentacar.domain.reservation.payment.PaymentGateway;
+import io.github.aquerr.rentacar.domain.reservation.payment.PaymentWebhookEvent;
 import io.github.aquerr.rentacar.domain.vehicle.VehicleService;
+import io.github.aquerr.rentacar.domain.vehicle.repository.VehicleRepository;
 import io.github.aquerr.rentacar.domain.reservation.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,10 +32,93 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationService {
 
+    // Hold time-to-live: a placed hold occupies category/hour capacity for this long unless claimed.
+    private static final Duration HOLD_TTL = Duration.ofMinutes(30);
+
     private final ReservationRepository reservationRepository;
     private final ReservationConverter reservationConverter;
     private final AuthenticationFacade authenticationFacade;
     private final VehicleService vehicleService;
+    private final VehicleRepository vehicleRepository;
+    private final PaymentEventRepository paymentEventRepository;
+    private final PaymentGateway paymentGateway;
+
+    // ---------------------------------------------------------------------------------------------
+    // Payment-hold / claim flow.  NAIVE BASELINE below — the graded tests fail against it; the task is
+    // to make placeHold + confirmPayment correct under concurrency, duplicate/late webhooks, and hold
+    // expiry (see instruction.md).
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Place a provisional PENDING_PAYMENT hold for each requested category/hour slot. Each live hold
+     * occupies one unit of its category pool until it expires or is claimed. Returns the hold ids.
+     * NAIVE: no batch transaction (partial holds survive a mid-batch rejection), default isolation,
+     * and a capacity read that only inspects the first hour of the window — so concurrent holds
+     * write-skew past the pool and a later at-capacity hour in the span is never checked.
+     */
+    public List<Long> placeHold(HoldRequest request) {
+        List<Long> ids = new ArrayList<>();
+        for (HoldRequest.Item item : request.getItems()) {
+            ids.add(placeSingleHold(request.getUserId(), item));
+        }
+        return ids;
+    }
+
+    @Transactional
+    protected Long placeSingleHold(Long userId, HoldRequest.Item item) {
+        long pool = vehicleRepository.countByCategory(item.getCategory());
+        // NAIVE narrow read: only the first hour bucket of the requested span is checked.
+        long occupied = reservationRepository.countOccupiedInCategoryWindow(
+                item.getCategory(),
+                item.getDateFrom(),
+                item.getDateFrom().plusHours(1),
+                ReservationStatus.CONFIRMED_STATUSES,
+                ReservationStatus.PENDING_PAYMENT.getStatus(),
+                LocalDateTime.now());
+        if (occupied >= pool) {
+            throw new ReservationVehicleNotAvailableException();
+        }
+        ReservationEntity entity = ReservationEntity.builder()
+                .category(item.getCategory())
+                .userId(userId)
+                .dateFrom(item.getDateFrom())
+                .dateTo(item.getDateTo())
+                .status(ReservationStatus.PENDING_PAYMENT.getStatus())
+                .expiresAt(LocalDateTime.now().plus(HOLD_TTL))
+                .build();
+        return reservationRepository.save(entity).getId();
+    }
+
+    /**
+     * Handle an inbound async payment confirmation webhook.
+     * NAIVE: check-then-act dedup (racy under duplicate webhooks -> double capture), no hold-expiry
+     * guard (completes an already-expired hold), and no refund for payments that arrive for an
+     * expired/terminal hold.
+     */
+    @Transactional
+    public void confirmPayment(PaymentWebhookEvent event) {
+        if (paymentEventRepository.findByPaymentReference(event.getPaymentReference()).isPresent()) {
+            return; // already processed
+        }
+        ReservationEntity reservation = reservationRepository.findById(event.getReservationId())
+                .orElseThrow(ReservationException::new);
+        if (ReservationStatus.PENDING_PAYMENT.getStatus().equals(reservation.getStatus())) {
+            paymentGateway.capture(event.getPaymentReference());
+            reservation.setStatus(ReservationStatus.PAYMENT_COMPLETED.getStatus());
+            reservation.setExpiresAt(null);
+            reservationRepository.save(reservation);
+        }
+        paymentEventRepository.save(PaymentEventEntity.builder()
+                .paymentReference(event.getPaymentReference())
+                .reservationId(event.getReservationId())
+                .outcome(reservation.getStatus())
+                .processedAt(LocalDateTime.now())
+                .build());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Existing single-reservation API (unchanged).
+    // ---------------------------------------------------------------------------------------------
 
     @Transactional
     public Reservation save(Reservation reservation) {
@@ -45,8 +136,6 @@ public class ReservationService {
         throw new ReservationVehicleNotAvailableException();
     }
 
-    // Multi-car booking. NAIVE BASELINE: each item is saved in its own transaction via save(),
-    // so the batch is neither atomic (partial inserts on mid-batch failure) nor free of write-skew.
     public List<Reservation> saveBatch(ReservationBatchRequest request) {
         List<Reservation> results = new ArrayList<>();
         for (ReservationBatchRequest.Item item : request.getItems()) {

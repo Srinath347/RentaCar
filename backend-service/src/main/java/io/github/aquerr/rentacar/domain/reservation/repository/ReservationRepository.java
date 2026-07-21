@@ -32,4 +32,19 @@ public interface ReservationRepository extends JpaRepository<ReservationEntity, 
 
     @Query("FROM ReservationEntity reservation WHERE reservation.userId = :userId")
     List<ReservationEntity> findAllByUserId(@Param("userId") Long userId);
+
+    // Count reservations occupying capacity in a category over the window [windowStart, windowEnd):
+    // confirmed rows (PAYMENT_COMPLETED / VEHICLE_DELIVERED) plus LIVE holds (PENDING_PAYMENT whose
+    // expiresAt is still in the future). Expired holds and terminal rows are excluded and free the slot.
+    @Query("SELECT COUNT(r) FROM ReservationEntity r " +
+            "WHERE r.category = :category " +
+            "AND r.dateFrom < :windowEnd AND :windowStart < r.dateTo " +
+            "AND (r.status IN :confirmedStatuses " +
+            "     OR (r.status = :pendingStatus AND r.expiresAt > :now))")
+    long countOccupiedInCategoryWindow(@Param("category") String category,
+                                       @Param("windowStart") LocalDateTime windowStart,
+                                       @Param("windowEnd") LocalDateTime windowEnd,
+                                       @Param("confirmedStatuses") Collection<String> confirmedStatuses,
+                                       @Param("pendingStatus") String pendingStatus,
+                                       @Param("now") LocalDateTime now);
 }

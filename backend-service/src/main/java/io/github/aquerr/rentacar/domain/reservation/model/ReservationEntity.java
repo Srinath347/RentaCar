@@ -31,11 +31,16 @@ public class ReservationEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "vehicle_id", insertable = false, updatable = false)
     private VehicleEntity vehicle;
 
-    @Column(name = "vehicle_id", nullable = false)
+    // Nullable: a category-level hold has no concrete vehicle until it is claimed/delivered.
+    @Column(name = "vehicle_id")
     private Integer vehicleId;
+
+    // Vehicle category this reservation occupies (set for holds; the pool cap is per category/hour).
+    @Column(name = "category")
+    private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
@@ -52,4 +57,9 @@ public class ReservationEntity {
 
     @Column(name = "status", nullable = false)
     private String status;
+
+    // Set to (now + hold TTL) when a PENDING_PAYMENT hold is placed; NULL for non-hold rows.
+    // A hold occupies category/hour capacity only while expiresAt is in the future.
+    @Column(name = "expires_at")
+    private LocalDateTime expiresAt;
 }
