@@ -43,19 +43,6 @@ public class ReservationService {
     private final PaymentEventRepository paymentEventRepository;
     private final PaymentGateway paymentGateway;
 
-    // ---------------------------------------------------------------------------------------------
-    // Payment-hold / claim flow.  NAIVE BASELINE below — the graded tests fail against it; the task is
-    // to make placeHold + confirmPayment correct under concurrency, duplicate/late webhooks, and hold
-    // expiry (see instruction.md).
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Place a provisional PENDING_PAYMENT hold for each requested category/hour slot. Each live hold
-     * occupies one unit of its category pool until it expires or is claimed. Returns the hold ids.
-     * NAIVE: no batch transaction (partial holds survive a mid-batch rejection), default isolation,
-     * and a capacity read that only inspects the first hour of the window — so concurrent holds
-     * write-skew past the pool and a later at-capacity hour in the span is never checked.
-     */
     public List<Long> placeHold(HoldRequest request) {
         List<Long> ids = new ArrayList<>();
         for (HoldRequest.Item item : request.getItems()) {
@@ -67,7 +54,6 @@ public class ReservationService {
     @Transactional
     protected Long placeSingleHold(Long userId, HoldRequest.Item item) {
         long pool = vehicleRepository.countByCategory(item.getCategory());
-        // NAIVE narrow read: only the first hour bucket of the requested span is checked.
         long occupied = reservationRepository.countOccupiedInCategoryWindow(
                 item.getCategory(),
                 item.getDateFrom(),
@@ -89,16 +75,10 @@ public class ReservationService {
         return reservationRepository.save(entity).getId();
     }
 
-    /**
-     * Handle an inbound async payment confirmation webhook.
-     * NAIVE: check-then-act dedup (racy under duplicate webhooks -> double capture), no hold-expiry
-     * guard (completes an already-expired hold), and no refund for payments that arrive for an
-     * expired/terminal hold.
-     */
     @Transactional
     public void confirmPayment(PaymentWebhookEvent event) {
         if (paymentEventRepository.findByPaymentReference(event.getPaymentReference()).isPresent()) {
-            return; // already processed
+            return;
         }
         ReservationEntity reservation = reservationRepository.findById(event.getReservationId())
                 .orElseThrow(ReservationException::new);
